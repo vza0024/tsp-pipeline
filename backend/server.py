@@ -29,6 +29,7 @@ from sim import coppeliasim_renderer as renderer
 
 LOGGER = logging.getLogger(__name__)
 BASE_DIR = Path(__file__).resolve().parent
+FRONTEND_DIR = BASE_DIR.parent / "frontend"
 TOTAL_STEPS = 3
 
 SIM_HOST = os.getenv("COPPELIASIM_HOST", "localhost")
@@ -282,18 +283,18 @@ def _run_lesson(question: dict[str, Any], obj: str, action: str, lesson_id: int)
 
 def create_app() -> Flask:
     """Create the Flask application."""
-    app = Flask(__name__, static_folder=str(BASE_DIR))
+    app = Flask(__name__, static_folder=str(FRONTEND_DIR))
     app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
 
     @app.get("/")
     def index():
-        response = send_from_directory(BASE_DIR, "topics.html")
+        response = send_from_directory(FRONTEND_DIR, "topics.html")
         response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
         return response
 
     @app.get("/learn")
     def learn():
-        response = send_from_directory(BASE_DIR, "index.html")
+        response = send_from_directory(FRONTEND_DIR, "index.html")
         response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
         return response
 

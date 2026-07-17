@@ -17,7 +17,7 @@ if tmux has-session -t "$SESSION" 2>/dev/null; then
 fi
 
 tmux new-session -d -s "$SESSION" \
-  "cd '$PROJECT_DIR' && '$PYTHON_BIN' server.py"
+  "cd '$PROJECT_DIR' && '$PYTHON_BIN' backend/server.py"
 
 echo "Started tmux session: $SESSION"
 echo "Project directory: $PROJECT_DIR"

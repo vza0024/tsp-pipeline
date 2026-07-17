@@ -21,15 +21,17 @@ The runtime sequence is:
 
 ```text
 pipeline/
-├── config.py                     Shared topics, actions, colors, and validation
-├── question_generator.py         Verified question generation for 25 subtypes
-├── llm_narrator.py               Prompt construction and model inference
-├── server.py                     Thread-safe Flask orchestration server
-├── index.html                    Lesson interface
-├── topics.html                   Topic picker
-├── sim/
-│   ├── coppeliasim_renderer.py   Object placement and animation
-│   └── display_utils.py          Fraction and ratio labels
+├── backend/                      Python application (run and imported from here)
+│   ├── config.py                 Shared topics, actions, colors, and validation
+│   ├── question_generator.py     Verified question generation for 25 subtypes
+│   ├── llm_narrator.py           Prompt construction and model inference
+│   ├── server.py                 Thread-safe Flask orchestration server
+│   └── sim/
+│       ├── coppeliasim_renderer.py   Object placement and animation
+│       └── display_utils.py          Fraction and ratio labels
+├── frontend/                     Web interface served by the backend
+│   ├── index.html                Lesson interface
+│   └── topics.html               Topic picker
 ├── tests/
 │   ├── test_question_generator.py
 │   ├── test_narrator.py
@@ -90,7 +92,7 @@ Load `.env` through your shell, process manager, or scheduler. For example:
 set -a
 source .env
 set +a
-python server.py
+python backend/server.py
 ```
 
 ## Run locally
@@ -99,7 +101,7 @@ python server.py
 2. Start the application:
 
 ```bash
-python server.py
+python backend/server.py
 ```
 
 3. Open `http://localhost:5000`.
@@ -128,7 +130,7 @@ Install development dependencies and run:
 
 ```bash
 python -m pip install -r requirements-dev.txt
-python -m unittest discover -s tests -v
+python -m unittest discover -s tests -t . -v
 ruff check .
 ruff format --check .
 ```
@@ -137,11 +139,11 @@ The unit tests do not load the LLaMA model or require CoppeliaSim.
 
 ## Adding a question type
 
-1. Add the question type and appropriate actions to `BEST_ACTIONS` in `config.py`.
-2. Generate its verified values in `question_generator.py`.
-3. Add Think, See, and Prove facts in `llm_narrator.py`.
+1. Add the question type and appropriate actions to `BEST_ACTIONS` in `backend/config.py`.
+2. Generate its verified values in `backend/question_generator.py`.
+3. Add Think, See, and Prove facts in `backend/llm_narrator.py`.
 4. Add or reuse a compatible visualization action in
-   `sim/coppeliasim_renderer.py`.
+   `backend/sim/coppeliasim_renderer.py`.
 5. Extend the tests.
 
 ## Safety and reliability notes
