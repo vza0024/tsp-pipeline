@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Learning</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden;
+  }
+  .bg-shapes {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  }
+  .shape {
+    position: absolute; border-radius: 50%; opacity: 0.05;
+    animation: float 8s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-30px) rotate(180deg); }
+  }
+  .header { text-align: center; margin-bottom: 48px; z-index: 1; }
+  .header h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; }
+  .header h1 span { color: #e94560; }
+  .header p { margin-top: 8px; opacity: 0.7; font-size: 1.1rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 800px;
+    width: 90%;
+    z-index: 1;
+  }
+  .card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    backdrop-filter: blur(10px);
+  }
+  .card:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.3);
+  }
+  .card .icon { font-size: 2.4rem; }
+  .card .label { font-size: 1.1rem; font-weight: 700; }
+  .card .sub { font-size: 0.82rem; opacity: 0.6; }
+  .card:nth-child(1) { background: linear-gradient(135deg,rgba(233,69,96,0.2),rgba(233,69,96,0.05)); border-color: rgba(233,69,96,0.3); }
+  .card:nth-child(2) { background: linear-gradient(135deg,rgba(82,130,255,0.2),rgba(82,130,255,0.05)); border-color: rgba(82,130,255,0.3); }
+  .card:nth-child(3) { background: linear-gradient(135deg,rgba(32,201,151,0.2),rgba(32,201,151,0.05)); border-color: rgba(32,201,151,0.3); }
+  .card:nth-child(4) { background: linear-gradient(135deg,rgba(255,165,0,0.2),rgba(255,165,0,0.05)); border-color: rgba(255,165,0,0.3); }
+  .card:nth-child(5) { background: linear-gradient(135deg,rgba(155,89,182,0.2),rgba(155,89,182,0.05)); border-color: rgba(155,89,182,0.3); }
+  /* Center the last row of 2 cards in a 3-column grid */
+  .grid { grid-template-columns: repeat(6, 1fr); }
+  .card:nth-child(1) { grid-column: 1 / 3; }
+  .card:nth-child(2) { grid-column: 3 / 5; }
+  .card:nth-child(3) { grid-column: 5 / 7; }
+  .card:nth-child(4) { grid-column: 2 / 4; }
+  .card:nth-child(5) { grid-column: 4 / 6; }
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr 1fr; }
+    .card:nth-child(3) { grid-column: auto; }
+    .card:nth-child(5) { grid-column: 1/-1; max-width: 200px; margin: 0 auto; }
+  }
+  .llm-badge {
+    margin-top: 32px; z-index: 1;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+<div class="bg-shapes">
+  <div class="shape" style="width:300px;height:300px;background:#e94560;top:-100px;right:-100px;animation-delay:0s"></div>
+  <div class="shape" style="width:200px;height:200px;background:#5282ff;bottom:-50px;left:-50px;animation-delay:2s"></div>
+  <div class="shape" style="width:150px;height:150px;background:#20c997;top:40%;left:10%;animation-delay:4s"></div>
+</div>
+
+<div class="header">
+  <h1>Math <span>Learning</span></h1>
+  <p>Pick a topic to start learning with CoppeliaSim</p>
+</div>
+
+<div class="grid">
+  <a class="card" href="/learn?topic=fractions">
+    <div class="icon">🔢</div>
+    <div class="label">Fractions</div>
+    <div class="sub">Simplify · Compare · Add · Of</div>
+  </a>
+  <a class="card" href="/learn?topic=ratios">
+    <div class="icon">⚖️</div>
+    <div class="label">Ratios</div>
+    <div class="sub">Simplify · Scale · Part-Whole</div>
+  </a>
+  <a class="card" href="/learn?topic=decimals">
+    <div class="icon">🔸</div>
+    <div class="label">Decimals</div>
+    <div class="sub">Convert · Compare · Add · Of</div>
+  </a>
+  <a class="card" href="/learn?topic=percentages">
+    <div class="icon">💯</div>
+    <div class="label">Percentages</div>
+    <div class="sub">Of · Convert · Change · Find</div>
+  </a>
+  <a class="card" href="/learn?topic=probability">
+    <div class="icon">🎲</div>
+    <div class="label">Probability</div>
+    <div class="sub">Simple · Complement · Expected</div>
+  </a>
+</div>
+
+<div class="llm-badge">✨ Powered by LLaMA 3.1 8B + CoppeliaSim</div>
+</body>
+</html>

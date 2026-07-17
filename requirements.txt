@@ -1,0 +1,5 @@
+Flask
+accelerate
+coppeliasim-zmqremoteapi-client
+torch
+transformers
